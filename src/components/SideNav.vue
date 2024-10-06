@@ -1,9 +1,10 @@
 <template>
-  <v-navigation-drawer app permanent :mini-variant="mini_variant">
-    <v-list-item>
-      <v-avatar>
-        <v-img alt="John" src="@/assets/nemsu.jpg"></v-img>
-      </v-avatar>
+  <v-navigation-drawer app permanent>
+    <v-list-item
+      prepend-avatar="src/assets/nemsu.jpg"
+      subtitle="ZtechSolutions@gmail.com"
+      title="NEMSU SE_System"
+    >
     </v-list-item>
 
     <v-divider></v-divider>
@@ -14,7 +15,7 @@
           <v-icon :icon="item.icon"></v-icon>
         </template>
 
-        <v-list-item-title v-text="item.title"></v-list-item-title>
+        <v-list-item-title>{{ item.title }}</v-list-item-title>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
@@ -22,7 +23,6 @@
   
   <script>
 export default {
-  props: ["mini_variant"],
   data() {
     return {
       items: [
