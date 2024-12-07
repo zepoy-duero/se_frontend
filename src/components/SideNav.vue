@@ -2,7 +2,7 @@
   <v-navigation-drawer app permanent>
     <v-list-item
       prepend-avatar="src/assets/nemsu.jpg"
-      subtitle="ZtechSolutions@gmail.com"
+      subtitle="ztechsolutions@gmail.com"
       title="NEMSU SE_System"
     >
     </v-list-item>
@@ -26,9 +26,13 @@ export default {
   data() {
     return {
       items: [
-        { title: "Dashboard", icon: "mdi-view-dashboard", url: "/dashboard" },
-        { title: "Students", icon: "mdi-account-multiple", url: "/" },
-        { title: "Prospectus", icon: "mdi-cart", url: "/prospectus" },
+        { title: "Dashboard", icon: "mdi-view-dashboard", url: "/" },
+        {
+          title: "Students",
+          icon: "mdi-account-multiple",
+          url: "/list-students",
+        },
+        { title: "Prospectus", icon: "mdi-cart", url: "/program-prospectus" },
 
         { title: "Documentation", icon: "mdi-help-box", url: "/documentation" },
       ],

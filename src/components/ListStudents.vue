@@ -91,6 +91,7 @@ export default {
       this.$router.push({ name: "CreateStudent" });
     },
     editStudent(studentId) {
+      console.log(studentId);
       this.$router.push({ name: "EditStudent", params: { id: studentId } });
     },
     deleteStudent(studentId) {

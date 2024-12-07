@@ -1,16 +1,34 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import ListStudents from '../components/ListStudents.vue';
-import CreateStudent from '../components/CreateStudent.vue';
-import Grades from '../components/Grades.vue';
-import ProgramProspectus from '../components/ProgramProspectus.vue';
-import StudentProspectus from '../components/StudentProspectus.vue';
+import { createRouter, createWebHistory } from "vue-router";
+import DashBoard from "../components/DashBoard.vue";
+import ListStudents from "../components/ListStudents.vue";
+import CreateStudent from "../components/CreateStudent.vue";
+import EditStudent from "../components/EditStudent.vue";
+import Grades from "../components/Grades.vue";
+import ProgramProspectus from "../components/ProgramProspectus.vue";
+import CreateProgramProspectus from "../components/CreateProgramProspectus.vue";
+import StudentProspectus from "../components/StudentProspectus.vue";
 
 const routes = [
-  { path: '/', name: 'ListStudents', component: ListStudents },
-  { path: '/create', name: 'CreateStudent', component: CreateStudent },
-  { path: '/grades', name: 'Grades', component: Grades },
-  { path: '/program-prospectus', name: 'ProgramProspectus', component: ProgramProspectus },
-  { path: '/student-prospectus', name: 'StudentProspectus', component: StudentProspectus },
+  { path: "/", name: "DashBoard", component: DashBoard },
+  { path: "/list-students", name: "ListStudents", component: ListStudents },
+  { path: "/create-student", name: "CreateStudent", component: CreateStudent },
+  { path: "/edit/:id", name: "EditStudent", component: EditStudent },
+  { path: "/grades", name: "Grades", component: Grades },
+  {
+    path: "/program-prospectus",
+    name: "ProgramProspectus",
+    component: ProgramProspectus,
+  },
+  {
+    path: "/create-program-prospectus",
+    name: "CreateProgramProspectus",
+    component: CreateProgramProspectus,
+  },
+  {
+    path: "/student-prospectus",
+    name: "StudentProspectus",
+    component: StudentProspectus,
+  },
   // Add routes for editing and viewing more details
 ];
 
