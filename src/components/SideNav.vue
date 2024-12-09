@@ -1,14 +1,6 @@
 <template>
-  <v-navigation-drawer app permanent>
-    <v-list-item
-      prepend-avatar="src/assets/nemsu.jpg"
-      subtitle="ztechsolutions@gmail.com"
-      title="NEMSU SE_System"
-    >
-    </v-list-item>
-
-    <v-divider></v-divider>
-
+  <v-navigation-drawer :rail="drawer" app permanent>
+    <!-- <v-divider class="mt-2"></v-divider> -->
     <v-list nav>
       <v-list-item v-for="item in items" :key="item.title" link :to="item.url">
         <template v-slot:prepend>
@@ -23,8 +15,10 @@
   
   <script>
 export default {
+  props: ["toggle_drawer"],
   data() {
     return {
+      toggle: false,
       items: [
         { title: "Dashboard", icon: "mdi-view-dashboard", url: "/" },
         {
@@ -38,6 +32,12 @@ export default {
       ],
       right: null,
     };
+  },
+  computed: {
+    drawer() {
+      console.log(this.toggle_drawer);
+      return this.toggle_drawer;
+    },
   },
 };
 </script>
