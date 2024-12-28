@@ -43,8 +43,21 @@
             required
           ></v-select>
 
-          <v-btn color="primary" @click="updateStudent">Save Changes</v-btn>
-          <v-btn @click="$router.go(-1)" color="secondary">Cancel</v-btn>
+          <v-btn
+            class="mr-2"
+            size="small"
+            rounded="xl"
+            color="primary"
+            @click="updateStudent"
+            >Save Changes</v-btn
+          >
+          <v-btn
+            size="small"
+            rounded="xl"
+            @click="$router.go(-1)"
+            color="secondary"
+            >Cancel</v-btn
+          >
         </v-form>
       </v-col>
     </v-row>

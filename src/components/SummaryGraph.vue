@@ -19,16 +19,6 @@
         height="100"
       ></v-sparkline>
     </v-sheet>
-
-    <v-card-text class="pt-0">
-      <div class="text-h6 font-weight-light mb-2">BSCpE</div>
-
-      <v-divider class="my-2"></v-divider>
-      <v-icon class="me-2" size="small"> mdi-clock </v-icon>
-      <span class="text-caption text-grey font-weight-light"
-        >last registration 26 minutes ago</span
-      >
-    </v-card-text>
   </v-card>
 </template>
       <script>

@@ -1,16 +1,23 @@
 <template>
-  <v-navigation-drawer :rail="drawer" app permanent>
-    <!-- <v-divider class="mt-2"></v-divider> -->
-    <v-list nav>
-      <v-list-item v-for="item in items" :key="item.title" link :to="item.url">
-        <template v-slot:prepend>
-          <v-icon :icon="item.icon"></v-icon>
-        </template>
+  <div>
+    <v-navigation-drawer :rail="drawer" app permanent>
+      <!-- <v-divider class="mt-2"></v-divider> -->
+      <v-list nav>
+        <v-list-item
+          v-for="item in items"
+          :key="item.title"
+          link
+          :to="item.url"
+        >
+          <template v-slot:prepend>
+            <v-icon :icon="item.icon"></v-icon>
+          </template>
 
-        <v-list-item-title>{{ item.title }}</v-list-item-title>
-      </v-list-item>
-    </v-list>
-  </v-navigation-drawer>
+          <v-list-item-title>{{ item.title }}</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+  </div>
 </template>
   
   <script>

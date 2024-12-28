@@ -5,9 +5,10 @@
         <h1>Students List</h1>
         <v-toolbar class="px-2" flat>
           <v-toolbar-title>Students</v-toolbar-title>
-          <v-divider class="mx-4" inset vertical></v-divider>
+
           <v-spacer></v-spacer>
           <v-btn
+            size="small"
             rounded="xl"
             variant="flat"
             color="primary"
@@ -25,7 +26,7 @@
         >
           <template v-slot:item.actions="{ item }">
             <v-row>
-              <v-col cols="1">
+              <v-col cols="1" offset="7">
                 <v-icon
                   size="small"
                   color="blue"
@@ -41,21 +42,33 @@
                   >mdi-delete</v-icon
                 >
               </v-col>
+              <v-col cols="1">
+                <v-icon
+                  size="small"
+                  color="green"
+                  @click="evaulateStudent(item.student_id)"
+                  >mdi-account-reactivate</v-icon
+                >
+              </v-col>
             </v-row>
           </template>
         </v-data-table>
       </v-col>
     </v-row>
+    <student-evaluation :evalDialog="evalDialog" />
   </v-container>
 </template>
   
   <script>
 import apiClient from "../services/api";
+import StudentEvaluation from "./StudentEvaluation.vue";
 // import { useStudentStore } from '../stores/studentStore';
 // import { onMounted } from 'vue';
 export default {
+  components: [StudentEvaluation],
   data() {
     return {
+      evalDialog: false,
       headers: [
         {
           align: "start",
@@ -65,8 +78,9 @@ export default {
         },
         { title: "First Name", key: "first_name" },
         { title: "Last Name", key: "last_name" },
+        { title: "Birthday", key: "date_of_birth" },
         { title: "Email", key: "email" },
-        { title: "Actions", key: "actions" },
+        { title: "Actions", key: "actions", align: "end" },
       ],
       students: [],
     };
@@ -103,6 +117,10 @@ export default {
         .catch((error) => {
           console.error("Error deleting student:", error);
         });
+    },
+    evaulateStudent(studentId) {
+      console.log(studentId);
+      this.evalDialog = true;
     },
   },
 };

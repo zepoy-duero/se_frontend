@@ -1,13 +1,12 @@
 <template>
   <v-app>
-    <v-app-bar flat color="white" density="compact">
+    <v-app-bar flat color="indigo" density="comfortable">
       <template v-slot:prepend>
-        <v-avatar>
+        <v-avatar v-show="drawer" class="ml-2">
           <v-img src="src/assets/nemsu.jpg"></v-img>
         </v-avatar>
         <v-list-item
           v-show="drawer"
-          prepend-avatar="src/assets/nemsu.jpg"
           subtitle="ztechsolutions@gmail.com"
           title="NEMSU SE_System"
         >
@@ -21,7 +20,8 @@
       </template>
     </v-app-bar>
 
-    <side-nav :toggle_drawer="drawer" />
+    <side-nav :toggle_drawer="!drawer" />
+    <loader v-show="loading" />
     <v-main>
       <router-view> </router-view>
     </v-main>
@@ -30,15 +30,19 @@
 
 <script>
 import SideNav from "./components/SideNav.vue";
+import Loader from "./components/Loader.vue";
+// import { useLoader } from "./stores/loader";
 export default {
-  components: { SideNav },
+  components: { SideNav, Loader },
   data() {
     return {
       drawer: false,
       rail: true,
+      loading: false,
     };
   },
   name: "App",
+
   methods: {
     toggle() {
       this.drawer = !this.drawer;
