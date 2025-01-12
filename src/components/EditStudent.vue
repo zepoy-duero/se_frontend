@@ -13,8 +13,29 @@
           ></v-text-field>
 
           <v-text-field
+            v-model="student.middle_name"
+            label="Middle Name"
+          ></v-text-field>
+
+          <v-text-field
             v-model="student.last_name"
             label="Last Name"
+            :rules="[rules.required]"
+            required
+          ></v-text-field>
+
+          <v-select
+            v-model="student.gender"
+            :items="genders"
+            label="Gender"
+            :rules="[rules.required]"
+            required
+          ></v-select>
+
+          <v-text-field
+            v-model="student.date_of_birth"
+            label="Date of Birth"
+            type="date"
             :rules="[rules.required]"
             required
           ></v-text-field>
@@ -26,22 +47,34 @@
             required
           ></v-text-field>
 
-          <!-- <v-text-field
-              v-model="student.phone_number"
-              label="Phone Number"
-              :rules="[rules.required]"
-              required
-            ></v-text-field> -->
+          <v-text-field
+            v-model="student.address"
+            label="Address"
+            :rules="[rules.required]"
+            required
+          ></v-text-field>
+
+          <v-text-field
+            v-model="student.course"
+            label="Course"
+            :rules="[rules.required]"
+            required
+          ></v-text-field>
 
           <v-select
-            v-model="student.program"
-            :items="programs"
-            item-text="name"
-            item-value="id"
-            label="Program"
+            v-model="student.year_level"
+            :items="yearLevels"
+            label="Year Level"
             :rules="[rules.required]"
             required
           ></v-select>
+
+          <v-text-field
+            v-model="student.college_department"
+            label="College Department"
+            :rules="[rules.required]"
+            required
+          ></v-text-field>
 
           <v-btn
             class="mr-2"
@@ -63,8 +96,8 @@
     </v-row>
   </v-container>
 </template>
-  
-  <script>
+
+<script>
 import apiClient from "../services/api";
 
 export default {
@@ -73,24 +106,28 @@ export default {
       valid: false,
       student: {
         first_name: "",
+        middle_name: "",
         last_name: "",
+        gender: "",
+        date_of_birth: "",
         email: "",
-        // phone_number: '',
-        program: null,
+        address: "",
+        course: "",
+        year_level: "",
+        college_department: "",
       },
-      programs: [], // List of programs for the select dropdown
+      genders: ["Male", "Female", "Other"],
+      yearLevels: ["1st Year", "2nd Year", "3rd Year", "4th Year"],
       rules: {
         required: (value) => !!value || "Required.",
-        email: (value) => /.+@.+\..+/.test(value) || "E-mail must be valid",
+        email: (value) => /.+@.+\\..+/.test(value) || "E-mail must be valid",
       },
     };
   },
   created() {
     this.fetchStudent();
-    this.fetchPrograms();
   },
   methods: {
-    // Fetch the student details to be edited
     fetchStudent() {
       const studentId = this.$route.params.id;
       apiClient
@@ -102,24 +139,12 @@ export default {
           console.error("Error fetching student:", error);
         });
     },
-    // Fetch list of programs for the select dropdown
-    fetchPrograms() {
-      apiClient
-        .get("/program-prospectuses")
-        .then((response) => {
-          this.programs = response.data;
-        })
-        .catch((error) => {
-          console.error("Error fetching programs:", error);
-        });
-    },
-    // Update student information
     updateStudent() {
       const studentId = this.$route.params.id;
       apiClient
         .put(`/students/${studentId}`, this.student)
         .then(() => {
-          this.$router.push({ name: "StudentList" }); // Redirect to student list or wherever
+          this.$router.push({ name: "StudentList" });
         })
         .catch((error) => {
           console.error("Error updating student:", error);
@@ -128,4 +153,3 @@ export default {
   },
 };
 </script>
-  

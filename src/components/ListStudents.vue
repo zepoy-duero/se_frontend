@@ -46,7 +46,7 @@
                 <v-icon
                   size="small"
                   color="green"
-                  @click="evaulateStudent(item.student_id)"
+                  @click="evaluateStudent(item.student_id)"
                   >mdi-account-reactivate</v-icon
                 >
               </v-col>
@@ -58,12 +58,11 @@
     <student-evaluation :evalDialog="evalDialog" />
   </v-container>
 </template>
-  
-  <script>
+
+<script>
 import apiClient from "../services/api";
 import StudentEvaluation from "./StudentEvaluation.vue";
-// import { useStudentStore } from '../stores/studentStore';
-// import { onMounted } from 'vue';
+
 export default {
   components: [StudentEvaluation],
   data() {
@@ -77,9 +76,15 @@ export default {
           sortable: false,
         },
         { title: "First Name", key: "first_name" },
+        { title: "Middle Name", key: "middle_name" },
         { title: "Last Name", key: "last_name" },
+        { title: "Gender", key: "gender" },
         { title: "Birthday", key: "date_of_birth" },
         { title: "Email", key: "email" },
+        { title: "Address", key: "address" },
+        { title: "Course", key: "course" },
+        { title: "Year Level", key: "year_level" },
+        { title: "College Department", key: "college_department" },
         { title: "Actions", key: "actions", align: "end" },
       ],
       students: [],
@@ -94,8 +99,6 @@ export default {
         .get("/students")
         .then((response) => {
           this.students = response.data;
-          console.log(this.students);
-          console.log(this.students[0]);
         })
         .catch((error) => {
           console.error("Error fetching students:", error);
@@ -105,7 +108,6 @@ export default {
       this.$router.push({ name: "CreateStudent" });
     },
     editStudent(studentId) {
-      console.log(studentId);
       this.$router.push({ name: "EditStudent", params: { id: studentId } });
     },
     deleteStudent(studentId) {
@@ -118,11 +120,9 @@ export default {
           console.error("Error deleting student:", error);
         });
     },
-    evaulateStudent(studentId) {
-      console.log(studentId);
+    evaluateStudent(studentId) {
       this.evalDialog = true;
     },
   },
 };
 </script>
-  
