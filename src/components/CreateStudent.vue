@@ -6,6 +6,12 @@
 
         <v-form ref="form" v-model="valid" lazy-validation>
           <v-text-field
+            v-model="student.student_id"
+            label="Student ID"
+            :rules="[rules.required]"
+            required
+          ></v-text-field>
+          <v-text-field
             v-model="student.first_name"
             label="First Name"
             :rules="[rules.required]"
@@ -105,6 +111,7 @@ export default {
     return {
       valid: false,
       student: {
+        student_id: "",
         first_name: "",
         middle_name: "",
         last_name: "",
@@ -130,13 +137,13 @@ export default {
   },
   methods: {
     createStudent() {
-      console.log(this.student)
+      console.log(this.student);
       if (!this.$refs.form.validate()) return;
 
       apiClient
         .post("/students", this.student)
         .then(() => {
-          this.$router.push({ name: "StudentList" });
+          this.$router.push({ name: "ListStudents" });
         })
         .catch((error) => {
           console.error("Error creating student:", error);

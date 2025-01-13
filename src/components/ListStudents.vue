@@ -55,16 +55,17 @@
         </v-data-table>
       </v-col>
     </v-row>
-    <student-evaluation :evalDialog="evalDialog" />
+    <StudentEvaluation :evalDialog="evalDialog" />
   </v-container>
 </template>
 
 <script>
 import apiClient from "../services/api";
-import StudentEvaluation from "./StudentEvaluation.vue";
 
 export default {
-  components: [StudentEvaluation],
+  components: {
+    StudentEvaluation: () => import("./StudentEvaluation.vue"),
+  },
   data() {
     return {
       evalDialog: false,

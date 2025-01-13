@@ -43,7 +43,7 @@
           <v-text-field
             v-model="student.email"
             label="Email"
-            :rules="[rules.required, rules.email]"
+            :rules="[rules.required, rules.validEmail]"
             required
           ></v-text-field>
 
@@ -120,7 +120,11 @@ export default {
       yearLevels: ["1st Year", "2nd Year", "3rd Year", "4th Year"],
       rules: {
         required: (value) => !!value || "Required.",
-        email: (value) => /.+@.+\\..+/.test(value) || "E-mail must be valid",
+        validEmail: (value) => {
+          const emailPattern =
+            /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+          return emailPattern.test(value) || "Invalid email format.";
+        },
       },
     };
   },
@@ -144,7 +148,7 @@ export default {
       apiClient
         .put(`/students/${studentId}`, this.student)
         .then(() => {
-          this.$router.push({ name: "StudentList" });
+          this.$router.push({ name: "ListStudents" });
         })
         .catch((error) => {
           console.error("Error updating student:", error);
