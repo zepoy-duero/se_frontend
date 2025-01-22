@@ -24,14 +24,14 @@
         >
       </v-card-title>
       <v-data-table-server
-        :items-per-page="itemsPerPage"
+        :items-per-page="params.params.itemsPerPage"
         :headers="headers"
         :items="students"
         :items-length="totalItems"
         :loading="loading"
         :search="params.params.search"
-        item-value="id"
-        @update:options="loadItems"
+        item-value="full_name"
+    @update:options="getStudents"
       >
         <template v-slot:[`item.full_name`]="{ item }">
           <span>{{
@@ -69,9 +69,9 @@
         <template v-slot:top>
           <v-pagination
             v-model="params.params.page"
-            :length="
-              Math.ceil(students.totalItems / params.params.itemsPerPage)
-            "
+          :length="
+            Math.ceil(totalItems / params.params.itemsPerPage)
+          "
             @input="getStudents()"
           ></v-pagination>
         </template>
@@ -130,6 +130,9 @@ export default {
     students() {
       return this.studentStore.students;
     },
+    totalItems(){
+      return Number(this.studentStore.totalItems)
+    }
   },
   created() {
     this.getStudents(this.params);
@@ -163,7 +166,7 @@ export default {
     evaluateStudent(studentId) {
       this.evalDialog = true;
     },
-  },
+     },
 };
 </script>
 <style scoped>
