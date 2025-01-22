@@ -1,61 +1,78 @@
 <template>
   <v-container>
-    <v-row>
-      <v-col>
-        <h1>Students List</h1>
-        <v-toolbar class="px-2" flat>
-          <v-toolbar-title>Students</v-toolbar-title>
+    <v-card>
+      <v-card-title class="d-flex align-center pe-2">
+        <v-icon icon="mdi-video-input-component"></v-icon> &nbsp; Students List
 
-          <v-spacer></v-spacer>
-          <v-btn
-            size="small"
-            rounded="xl"
-            variant="flat"
-            color="primary"
-            @click="createStudent"
-            >Add Student</v-btn
-          >
-        </v-toolbar>
-        <v-data-table
-          density="comfortable"
-          :headers="headers"
-          fixed-header
-          :items="students"
-          item-value="student_id"
-          class="elevation-1"
-        >
-          <template v-slot:item.actions="{ item }">
-            <v-row>
-              <v-col cols="1" offset="7">
-                <v-icon
-                  size="small"
-                  color="blue"
-                  @click="editStudent(item.student_id)"
-                  >mdi-pencil</v-icon
-                >
-              </v-col>
-              <v-col cols="1">
-                <v-icon
-                  size="small"
-                  color="red"
-                  @click="deleteStudent(item.student_id)"
-                  >mdi-delete</v-icon
-                >
-              </v-col>
-              <v-col cols="1">
-                <v-icon
-                  size="small"
-                  color="green"
-                  @click="evaluateStudent(item.student_id)"
-                  >mdi-account-reactivate</v-icon
-                >
-              </v-col>
-            </v-row>
-          </template>
-        </v-data-table>
-      </v-col>
-    </v-row>
-    <StudentEvaluation :evalDialog="evalDialog" />
+        <v-spacer></v-spacer>
+
+        <v-text-field
+          v-model="search"
+          density="compact"
+          label="Search"
+          prepend-inner-icon="mdi-magnify"
+          variant="solo-filled"
+          flat
+          hide-details
+          single-line
+        ></v-text-field>
+      </v-card-title>
+
+      <v-btn
+        size="small"
+        rounded="xl"
+        variant="flat"
+        color="primary"
+        @click="createStudent"
+        >Add New</v-btn
+      >
+      <v-data-table
+        density="comfortable"
+        :headers="headers"
+        fixed-header
+        :items="students"
+        class="elevation-1"
+        :search="search"
+      >
+     
+  
+        <template v-slot:[`item.full_name`]="{ item }">
+          <span>{{
+            item.last_name + ", " + item.first_name + " " + item.middle_name
+          }}</span>
+        </template>
+        <template v-slot:item.actions="{ item }">
+          <v-row>
+            <v-col>
+              <v-icon
+                size="small"
+                color="blue"
+                @click="editStudent(item.student_id)"
+                >mdi-pencil</v-icon
+              >
+            </v-col>
+            <v-col>
+              <v-icon
+                size="small"
+                color="red"
+                @click="deleteStudent(item.student_id)"
+                >mdi-delete</v-icon
+              >
+            </v-col>
+            <v-col>
+              <v-icon
+                size="small"
+                color="green"
+                @click="evaluateStudent(item.student_id)"
+                >mdi-account-reactivate</v-icon
+              >
+            </v-col>
+          </v-row>
+        </template>
+      </v-data-table>
+    </v-card>
+
+    <!-- <StudentEvaluation :evalDialog="evalDialog" /> -->
   </v-container>
 </template>
 
@@ -64,10 +81,11 @@ import apiClient from "../services/api";
 
 export default {
   components: {
-    StudentEvaluation: () => import("./StudentEvaluation.vue"),
+    // StudentEvaluation: () => import("./StudentEvaluation.vue"),
   },
   data() {
     return {
+      search: "",
       evalDialog: false,
       headers: [
         {
@@ -75,18 +93,21 @@ export default {
           title: "ID",
           key: "student_id",
           sortable: false,
+          loading: false,
+          class: "font-weight-black"
         },
-        { title: "First Name", key: "first_name" },
-        { title: "Middle Name", key: "middle_name" },
-        { title: "Last Name", key: "last_name" },
+        { title: "Full Name", key: "full_name" },
+        // { title: "First Name", key: "first_name" },
+        // { title: "Middle Name", key: "middle_name" },
+        // { title: "Last Name", key: "last_name" },
         { title: "Gender", key: "gender" },
-        { title: "Birthday", key: "date_of_birth" },
-        { title: "Email", key: "email" },
+        // { title: "Birthday", key: "date_of_birth" },
+        // { title: "Email", key: "email" },
         { title: "Address", key: "address" },
         { title: "Course", key: "course" },
         { title: "Year Level", key: "year_level" },
         { title: "College Department", key: "college_department" },
-        { title: "Actions", key: "actions", align: "end" },
+        { title: "Actions", key: "actions", align: "center" },
       ],
       students: [],
     };
@@ -95,6 +116,7 @@ export default {
     this.fetchStudents();
   },
   methods: {
+    onClick() {},
     fetchStudents() {
       apiClient
         .get("/students")
@@ -127,3 +149,6 @@ export default {
   },
 };
 </script>
+<style scoped>
+
+</style>

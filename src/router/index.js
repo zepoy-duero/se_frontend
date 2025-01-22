@@ -7,6 +7,7 @@ import Grades from "../components/Grades.vue";
 import ProgramProspectus from "../components/ProgramProspectus.vue";
 import CreateProgramProspectus from "../components/CreateProgramProspectus.vue";
 import StudentProspectus from "../components/StudentProspectus.vue";
+import Documentation from "../components/Documentation.vue"
 
 const routes = [
   { path: "/", name: "DashBoard", component: DashBoard },
@@ -30,6 +31,11 @@ const routes = [
     component: StudentProspectus,
   },
   // Add routes for editing and viewing more details
+  {
+    path: "/documentation",
+    name: "Documentation",
+    component: Documentation,
+  },
 ];
 
 const router = createRouter({
