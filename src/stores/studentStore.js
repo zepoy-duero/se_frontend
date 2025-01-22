@@ -8,14 +8,17 @@ export const useStudentStore = defineStore("student", {
     student: null,
     loading: false,
     error: null,
+    totalItems: null,
   }),
 
   actions: {
-    async fetchStudents() {
+    async fetchStudents(params) {
       this.loading = true;
       try {
-        const response = await apiClient.get("/students");
-        this.students = response.data;
+        const response = await apiClient.get("/students", params);
+        this.students = response.data.data;
+        this.totalItems = response.data.total;
+        console.log(this.students);
       } catch (error) {
         this.error = "Error fetching students";
         console.error(error);

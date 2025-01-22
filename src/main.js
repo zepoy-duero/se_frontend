@@ -8,9 +8,9 @@ import * as directives from "vuetify/directives";
 import "material-design-icons-iconfont/dist/material-design-icons.css";
 import "@mdi/font/css/materialdesignicons.css";
 import router from "./router";
-// import { createPinia } from "pinia";
+import { createPinia } from "pinia";
 
-// const pinia = createPinia();
+const pinia = createPinia();
 const vuetify = createVuetify({
   components,
   directives,
@@ -24,4 +24,4 @@ const vuetify = createVuetify({
   iconfont: "mdi",
 });
 
-createApp(App).use(vuetify).use(router).mount("#app");
+createApp(App).use(vuetify).use(pinia).use(router).mount("#app");

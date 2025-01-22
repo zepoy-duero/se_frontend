@@ -1,47 +1,44 @@
 <template>
-  <v-container>
+  <v-container fluid>
     <v-card>
-      <v-card-title class="d-flex align-center pe-2">
-        <v-icon icon="mdi-video-input-component"></v-icon> &nbsp; Students List
-
-        <v-spacer></v-spacer>
-
+      <v-card-title class="d-flex align-center pe-4">
         <v-text-field
-          v-model="search"
+          v-model="params.params.search"
           density="compact"
           label="Search"
           prepend-inner-icon="mdi-magnify"
+          prepend-icon="mdi-list-box"
           variant="solo-filled"
           flat
-          hide-details
           single-line
+          hint="Type the name of student"
         ></v-text-field>
+        <v-spacer></v-spacer>
+        <v-btn
+          size="small"
+          rounded="xl"
+          variant="flat"
+          color="primary"
+          @click="createStudent"
+          >Add New</v-btn
+        >
       </v-card-title>
-
-      <v-btn
-        size="small"
-        rounded="xl"
-        variant="flat"
-        color="primary"
-        @click="createStudent"
-        >Add New</v-btn
-      >
-      <v-data-table
-        density="comfortable"
+      <v-data-table-server
+        :items-per-page="itemsPerPage"
         :headers="headers"
-        fixed-header
         :items="students"
-        class="elevation-1"
-        :search="search"
+        :items-length="totalItems"
+        :loading="loading"
+        :search="params.params.search"
+        item-value="id"
+        @update:options="loadItems"
       >
-     
-  
         <template v-slot:[`item.full_name`]="{ item }">
           <span>{{
             item.last_name + ", " + item.first_name + " " + item.middle_name
           }}</span>
         </template>
-        <template v-slot:item.actions="{ item }">
+        <template v-slot:[`item.actions`]="{ item }">
           <v-row>
             <v-col>
               <v-icon
@@ -69,7 +66,16 @@
             </v-col>
           </v-row>
         </template>
-      </v-data-table>
+        <template v-slot:top>
+          <v-pagination
+            v-model="params.params.page"
+            :length="
+              Math.ceil(students.totalItems / params.params.itemsPerPage)
+            "
+            @input="getStudents()"
+          ></v-pagination>
+        </template>
+      </v-data-table-server>
     </v-card>
 
     <!-- <StudentEvaluation :evalDialog="evalDialog" /> -->
@@ -78,6 +84,7 @@
 
 <script>
 import apiClient from "../services/api";
+import { useStudentStore } from "../stores/studentStore";
 
 export default {
   components: {
@@ -85,7 +92,15 @@ export default {
   },
   data() {
     return {
-      search: "",
+      studentStore: useStudentStore(),
+      params: {
+        params: {
+          search: "",
+          page: 1,
+          itemsPerPage: "",
+        },
+      },
+      loading: false,
       evalDialog: false,
       headers: [
         {
@@ -94,7 +109,7 @@ export default {
           key: "student_id",
           sortable: false,
           loading: false,
-          class: "font-weight-black"
+          class: "font-weight-black",
         },
         { title: "Full Name", key: "full_name" },
         // { title: "First Name", key: "first_name" },
@@ -109,23 +124,25 @@ export default {
         { title: "College Department", key: "college_department" },
         { title: "Actions", key: "actions", align: "center" },
       ],
-      students: [],
     };
   },
+  computed: {
+    students() {
+      return this.studentStore.students;
+    },
+  },
   created() {
-    this.fetchStudents();
+    this.getStudents(this.params);
+  },
+  watch: {
+    page() {
+      this.getStudents();
+    },
   },
   methods: {
     onClick() {},
-    fetchStudents() {
-      apiClient
-        .get("/students")
-        .then((response) => {
-          this.students = response.data;
-        })
-        .catch((error) => {
-          console.error("Error fetching students:", error);
-        });
+    async getStudents() {
+      await this.studentStore.fetchStudents(this.params);
     },
     createStudent() {
       this.$router.push({ name: "CreateStudent" });
@@ -137,7 +154,7 @@ export default {
       apiClient
         .delete(`/students/${studentId}`)
         .then(() => {
-          this.fetchStudents();
+          this.getStudents();
         })
         .catch((error) => {
           console.error("Error deleting student:", error);
@@ -150,5 +167,4 @@ export default {
 };
 </script>
 <style scoped>
-
 </style>
