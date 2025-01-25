@@ -9,6 +9,7 @@
           item-value="id"
           class="elevation-1"
           :items-per-page="5"
+          fixed-header
         >
           <template v-slot:top>
             <v-toolbar class="px-2" flat>
@@ -27,12 +28,16 @@
           </template>
 
           <template v-slot:item.actions="{ item }">
-            <v-btn icon @click="editProgramProspectus(item.id)">
-              <v-icon>mdi-pencil</v-icon>
-            </v-btn>
-            <v-btn icon @click="deleteProgramProspectus(item.id)">
-              <v-icon>mdi-delete</v-icon>
-            </v-btn>
+            <v-icon color="blue" @click="editProgramProspectus(item.id)"
+                >mdi-pencil</v-icon
+              >
+              <v-icon
+                class="mx-2"
+                color="red"
+                @click="deleteProgramProspectus(item.id)"
+                >mdi-delete</v-icon
+              >
+           
           </template>
         </v-data-table>
       </v-col>
@@ -47,7 +52,7 @@ export default {
   data() {
     return {
       headers: [
-        { text: "Program of Study", value: "program_of_study" },
+        { text: "Program of Study", value: "program_of_study",align:"start" },
         { text: "Course Code", value: "course_code" },
         { text: "Course Title", value: "course_title" },
         { text: "Credit Units", value: "credit_units" },
@@ -62,7 +67,7 @@ export default {
   methods: {
     fetchProgramProspectuses() {
       apiClient
-        .get("/program-prospectuses")
+        .get("/program-prospectus")
         .then((response) => {
           this.programProspectuses = response.data;
         })
@@ -75,13 +80,13 @@ export default {
     },
     editProgramProspectus(programProspectusId) {
       this.$router.push({
-        name: "EditProgramProspectus",
+        name: "EditProgramProspect",
         params: { id: programProspectusId },
       });
     },
-    deleteProgramProspectus(programProspectusId) {
+    deleteProgramProspect(programProspectusId) {
       apiClient
-        .delete(`/program-prospectuses/${programProspectusId}`)
+        .delete(`/program-prospectus/${programProspectusId}`)
         .then(() => {
           this.fetchProgramProspectuses();
         })

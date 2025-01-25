@@ -1,83 +1,50 @@
 <template>
   <v-container>
-    <v-row>
-      <v-col cols="12" md="8" offset-md="2">
-        <h1>Create Program Prospectus</h1>
-
-        <v-form ref="form" v-model="valid" lazy-validation>
-          <v-text-field
-            v-model="programProspectus.name"
-            label="Program Name"
-            :rules="[rules.required]"
-            required
-          ></v-text-field>
-
-          <v-text-field
-            v-model="programProspectus.code"
-            label="Program Code"
-            :rules="[rules.required]"
-            required
-          ></v-text-field>
-
-          <v-btn
-            class="mr-2"
-            color="primary"
-            @click="createProgramProspectus"
-            :disabled="!valid"
-          >
-            Save
-          </v-btn>
-          <v-btn @click="$router.go(-1)" color="secondary">Cancel</v-btn>
+    <v-card>
+      <v-card-title>Program Prospectus</v-card-title>
+      <v-card-text>
+        <v-form ref="form">
+          <v-text-field v-model="form.program_of_study" label="Program of Study" required></v-text-field>
+          <v-text-field v-model="form.course_code" label="Course Code" required></v-text-field>
+          <v-text-field v-model="form.course_title" label="Course Title" required></v-text-field>
+          <v-text-field v-model="form.no_of_hours_lec" label="Lecture Hours" type="number" required></v-text-field>
+          <v-text-field v-model="form.no_of_hours_lab" label="Lab Hours" type="number" required></v-text-field>
+          <v-text-field v-model="form.credit_units" label="Credit Units" type="number" required></v-text-field>
+          <v-text-field v-model="form.pre_requisites" label="Pre-requisites"></v-text-field>
+          <v-btn color="primary" @click="saveProspectus">Save</v-btn>
         </v-form>
-
-        <v-alert v-if="error" type="error" class="mt-4">
-          {{ error }}
-        </v-alert>
-
-        <v-alert v-if="success" type="success" class="mt-4">
-          Program Prospectus created successfully!
-        </v-alert>
-      </v-col>
-    </v-row>
+      </v-card-text>
+    </v-card>
   </v-container>
 </template>
-  
-  <script>
-import apiClient from "../services/api";
 
+<script>
+import apiClient from '@/services/api';
 export default {
   data() {
     return {
-      valid: false,
-      programProspectus: {
-        name: "",
-        code: "",
-      },
-      error: null,
-      success: false,
-      rules: {
-        required: (value) => !!value || "Required.",
+      form: {
+        program_of_study: '',
+        course_code: '',
+        course_title: '',
+        no_of_hours_lec: 0,
+        no_of_hours_lab: 0,
+        credit_units: 0.0,
+        pre_requisites: '',
       },
     };
   },
   methods: {
-    createProgramProspectus() {
-      this.error = null;
-      this.success = false;
-
-      apiClient
-        .post("/program-prospectuses", this.programProspectus)
-        .then(() => {
-          this.success = true;
-          this.programProspectus = { name: "", code: "" }; // Reset form
-          this.$refs.form.resetValidation(); // Reset form validation
-        })
-        .catch((error) => {
-          this.error = "Failed to create program prospectus.";
-          console.error(error);
+    async saveProspectus() {
+      try {
+        await apiClient.post('/program-prospectus', this.form).then(() => {
+          this.$router.push({ name: "ProgramProspectus" });
         });
+        alert('Program Prospectus Saved!');
+      } catch (error) {
+        console.error('Error saving:', error);
+      }
     },
   },
 };
 </script>
-  
