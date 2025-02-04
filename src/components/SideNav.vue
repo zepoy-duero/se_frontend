@@ -30,10 +30,14 @@ export default {
         { title: "Dashboard", icon: "mdi-view-dashboard", url: "/" },
         {
           title: "Students",
-          icon: "mdi-account-multiple",
+          icon: "mdi-account-school",
           url: "/list-students",
         },
-        { title: "Prospectus", icon: "mdi-cart", url: "/program-prospectus" },
+        {
+          title: "Prospectus",
+          icon: "mdi-book-account",
+          url: "/program-prospectus",
+        },
 
         { title: "Documentation", icon: "mdi-help-box", url: "/documentation" },
       ],
