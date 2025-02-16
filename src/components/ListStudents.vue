@@ -1,7 +1,11 @@
 <template>
   <v-container fluid>
     <v-card>
-      <v-card-title class="text-h5"> Students List </v-card-title>
+      <!-- <v-card-title class="text-h5"> Students List </v-card-title> -->
+      <v-card-title>
+        <page-title :title="title" />
+      </v-card-title>
+
       <v-divider></v-divider>
       <v-card-title class="d-flex align-center pe-4 pt-4">
         <v-text-field
@@ -84,13 +88,17 @@
 <script>
 import apiClient from "../services/api";
 import { useStudentStore } from "../stores/studentStore";
+import PageTitle from "./PageTitle.vue";
 
 export default {
   components: {
-    // StudentEvaluation: () => import("./StudentEvaluation.vue"),
+    PageTitle,
   },
+  // StudentEvaluation: () => import("./StudentEvaluation.vue"),
+
   data() {
     return {
+      title: "Students List",
       studentStore: useStudentStore(),
       params: {
         params: {

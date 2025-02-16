@@ -1,58 +1,51 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col>
-        <h1>Program Prospectus</h1>
-        <v-data-table
-          :headers="headers"
-          :items="programProspectuses"
-          item-value="id"
-          class="elevation-1"
-          :items-per-page="5"
-          fixed-header
-        >
-          <template v-slot:top>
-            <v-toolbar class="px-2" flat>
-              <v-toolbar-title>Program Prospectus</v-toolbar-title>
-              <v-divider class="mx-4" inset vertical></v-divider>
-              <v-spacer></v-spacer>
-              <v-btn
-                size="small"
-                rounded="xl"
-                variant="flat"
-                color="primary"
-                @click="createProgramProspectus"
-                >Add Program</v-btn
-              >
-            </v-toolbar>
-          </template>
-
-          <template v-slot:item.actions="{ item }">
-            <v-icon color="blue" @click="editProgramProspectus(item.id)"
-                >mdi-pencil</v-icon
-              >
-              <v-icon
-                class="mx-2"
-                color="red"
-                @click="deleteProgramProspectus(item.id)"
-                >mdi-delete</v-icon
-              >
-           
-          </template>
-        </v-data-table>
-      </v-col>
-    </v-row>
+  <v-container fluid>
+    <v-card>
+      <v-card-title>
+        <page-title :title="title" />
+      </v-card-title>
+      <v-card-title class="d-flex align-center pe-4 pt-4">
+        <v-row>
+          <v-col>
+            <v-data-table
+              :headers="headers"
+              :items="programProspectuses"
+              item-value="id"
+              :items-per-page="5"
+              fixed-header
+              search=""
+            >
+              <template v-slot:actions="{ item }">
+                <v-icon color="blue" @click="editProgramProspectus(item.id)"
+                  >mdi-pencil</v-icon
+                >
+                <v-icon
+                  class="mx-2"
+                  color="red"
+                  @click="deleteProgramProspectus(item.id)"
+                  >mdi-delete</v-icon
+                >
+              </template>
+            </v-data-table>
+          </v-col>
+        </v-row>
+      </v-card-title>
+    </v-card>
   </v-container>
 </template>
   
   <script>
 import apiClient from "../services/api";
-
+import PageTitle from "./PageTitle.vue";
 export default {
+  components: {
+    PageTitle,
+  },
   data() {
     return {
+      title: "Program Prospectus",
       headers: [
-        { text: "Program of Study", value: "program_of_study",align:"start" },
+        { text: "Program of Study", value: "program_of_study", align: "start" },
         { text: "Course Code", value: "course_code" },
         { text: "Course Title", value: "course_title" },
         { text: "Credit Units", value: "credit_units" },
