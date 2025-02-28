@@ -2,7 +2,16 @@
   <v-container>
     <v-row>
       <v-col cols="12" md="8" offset-md="2">
-        <h1>Edit Student Information</h1>
+        <v-row>
+          <v-col><h1>Edit Student Information</h1></v-col>
+          <v-col cols="4">
+            <v-icon
+              size="small"
+              @click="$router.go(-1)"
+              color="secondary"
+            ></v-icon>
+          </v-col>
+        </v-row>
 
         <v-form ref="form" v-model="valid" lazy-validation>
           <v-text-field
