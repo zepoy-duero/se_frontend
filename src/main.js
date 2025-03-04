@@ -11,6 +11,7 @@ import router from "./router";
 import { createPinia } from "pinia";
 
 const pinia = createPinia();
+
 const vuetify = createVuetify({
   components,
   directives,

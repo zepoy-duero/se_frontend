@@ -8,10 +8,12 @@ import ProgramProspectus from "../components/ProgramProspectus.vue";
 import CreateProgramProspectus from "../components/CreateProgramProspectus.vue";
 import StudentProspectus from "../components/StudentProspectus.vue";
 import Documentation from "../components/Documentation.vue"
+import StudentProfile from "@/components/StudentProfile.vue";
 
 const routes = [
   { path: "/", name: "DashBoard", component: DashBoard },
   { path: "/list-students", name: "ListStudents", component: ListStudents },
+  { path: "/student-profile/:id", name: "StudentProfile", component: StudentProfile },
   { path: "/create-student", name: "CreateStudent", component: CreateStudent },
   { path: "/edit/:id", name: "EditStudent", component: EditStudent },
   { path: "/grades", name: "Grades", component: Grades },

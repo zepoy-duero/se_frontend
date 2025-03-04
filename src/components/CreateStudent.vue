@@ -8,14 +8,12 @@
           <v-text-field
             v-model="student.student_id"
             label="Student ID"
-            :rules="[rules.required]"
-            required
+            
           ></v-text-field>
           <v-text-field
             v-model="student.first_name"
             label="First Name"
-            :rules="[rules.required]"
-            required
+            
           ></v-text-field>
 
           <v-text-field
@@ -26,24 +24,21 @@
           <v-text-field
             v-model="student.last_name"
             label="Last Name"
-            :rules="[rules.required]"
-            required
+            
           ></v-text-field>
 
           <v-select
             v-model="student.gender"
             :items="genders"
             label="Gender"
-            :rules="[rules.required]"
-            required
+            
           ></v-select>
 
           <v-text-field
             v-model="student.date_of_birth"
             label="Date of Birth"
             type="date"
-            :rules="[rules.required]"
-            required
+            
           ></v-text-field>
 
           <v-text-field
@@ -56,30 +51,26 @@
           <v-text-field
             v-model="student.address"
             label="Address"
-            :rules="[rules.required]"
-            required
+            
           ></v-text-field>
 
           <v-text-field
             v-model="student.course"
             label="Course"
-            :rules="[rules.required]"
-            required
+            
           ></v-text-field>
 
           <v-select
             v-model="student.year_level"
             :items="yearLevels"
             label="Year Level"
-            :rules="[rules.required]"
-            required
+            
           ></v-select>
 
           <v-text-field
             v-model="student.college_department"
             label="College Department"
-            :rules="[rules.required]"
-            required
+            
           ></v-text-field>
 
           <v-btn

@@ -53,10 +53,10 @@
         >
           <template v-slot:[`item.profile_pic`]="{ item }">
             <v-avatar v-if="item.profile_pic != ''">
-              <v-icon icon="mdi-account"></v-icon>
+              <v-icon icon="mdi-account" @click="viewProfile(item.student_id)"></v-icon>
             </v-avatar>
             <v-avatar v-else>
-              <v-icon icon="mdi-account-circle"></v-icon>
+              <v-icon icon="mdi-account-circle" @click="viewProfile(item.student_id)"></v-icon>
             </v-avatar>
           </template>
           <template v-slot:[`item.full_name`]="{ item }">
@@ -104,7 +104,7 @@ export default {
         params: {
           search: "",
           page: 1,
-          itemsPerPage: "",
+          itemsPerPage: 10,
         },
       },
       loading: false,
@@ -161,6 +161,9 @@ export default {
     onClick() {},
     async getStudents() {
       await this.studentStore.fetchStudents(this.params);
+    },
+    viewProfile(studentId){
+      this.$router.push({name: "StudentProfile", params: {id: studentId}});
     },
     createStudent() {
       this.$router.push({ name: "CreateStudent" });

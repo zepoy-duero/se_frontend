@@ -17,8 +17,8 @@ export const useStudentStore = defineStore("student", {
       try {
         const response = await apiClient.get("/students", params);
         this.students = response.data.data;
+        console.log(this.students)
         this.totalItems = response.data.total;
-        console.log(this.totalItems);
       } catch (error) {
         this.error = "Error fetching students";
         console.error(error);
