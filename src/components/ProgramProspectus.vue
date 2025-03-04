@@ -4,7 +4,19 @@
       <v-card-title>
         <page-title :title="title" />
       </v-card-title>
+      <v-divider></v-divider>
       <v-card-title class="d-flex align-center pe-4 pt-4">
+        <v-spacer></v-spacer>
+        <v-icon class="mr-2" size="small" icon="mdi-download"></v-icon>
+        <v-icon class="mr-2" size="small" icon="mdi-printer-outline"></v-icon>
+        <v-icon
+          @click="createProgramProspectus"
+          class="mr-2"
+          size="small"
+          icon="mdi-plus"
+        ></v-icon>
+      </v-card-title>
+      <v-card-text>
         <v-row>
           <v-col>
             <v-data-table
@@ -29,7 +41,7 @@
             </v-data-table>
           </v-col>
         </v-row>
-      </v-card-title>
+      </v-card-text>
     </v-card>
   </v-container>
 </template>
