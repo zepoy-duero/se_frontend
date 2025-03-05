@@ -9,6 +9,7 @@ import CreateProgramProspectus from "../components/CreateProgramProspectus.vue";
 import StudentProspectus from "../components/StudentProspectus.vue";
 import Documentation from "../components/Documentation.vue"
 import StudentProfile from "@/components/StudentProfile.vue";
+import EditProgramProspectus from "@/components/EditProgramProspectus.vue";
 
 const routes = [
   { path: "/", name: "DashBoard", component: DashBoard },
@@ -26,6 +27,11 @@ const routes = [
     path: "/create-program-prospectus",
     name: "CreateProgramProspectus",
     component: CreateProgramProspectus,
+  },
+  {
+    path: "/edit-program-prospectus/:id",
+    name: "EditProgramProspectus",
+    component: EditProgramProspectus,
   },
   {
     path: "/student-prospectus",

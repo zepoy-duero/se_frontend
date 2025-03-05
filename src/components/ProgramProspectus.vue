@@ -9,44 +9,23 @@
         <v-spacer></v-spacer>
         <v-icon class="mr-2" size="small" icon="mdi-download"></v-icon>
         <v-icon class="mr-2" size="small" icon="mdi-printer-outline"></v-icon>
-        <v-icon
-          @click="createProgramProspectus"
-          class="mr-2"
-          size="small"
-          icon="mdi-plus"
-        ></v-icon>
+        <v-icon @click="createProgramProspectus" class="mr-2" size="small" icon="mdi-plus"></v-icon>
       </v-card-title>
       <v-card-text>
-        <v-row>
-          <v-col>
-            <v-data-table
-              :headers="headers"
-              :items="programProspectuses"
-              item-value="id"
-              :items-per-page="5"
-              fixed-header
-              search=""
-            >
-              <template v-slot:actions="{ item }">
-                <v-icon color="blue" @click="editProgramProspectus(item.id)"
-                  >mdi-pencil</v-icon
-                >
-                <v-icon
-                  class="mx-2"
-                  color="red"
-                  @click="deleteProgramProspectus(item.id)"
-                  >mdi-delete</v-icon
-                >
-              </template>
-            </v-data-table>
-          </v-col>
-        </v-row>
+        <v-data-table :row-props="itemColor" :headers="headers" :items="programProspectuses" item-key="id"
+          :items-per-page="5" search="">
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-icon color="blue" @click="editProgramProspectus(item.id)">mdi-pencil</v-icon>
+            <v-icon class="mx-2" color="red" @click="deleteProgramProspectus(item.id)">mdi-delete</v-icon>
+          </template>
+        </v-data-table>
+
       </v-card-text>
     </v-card>
   </v-container>
 </template>
-  
-  <script>
+
+<script>
 import apiClient from "../services/api";
 import PageTitle from "./PageTitle.vue";
 export default {
@@ -57,11 +36,14 @@ export default {
     return {
       title: "Program Prospectus",
       headers: [
-        { text: "Program of Study", value: "program_of_study", align: "start" },
-        { text: "Course Code", value: "course_code" },
-        { text: "Course Title", value: "course_title" },
-        { text: "Credit Units", value: "credit_units" },
-        { text: "Actions", value: "actions", sortable: false },
+        { title: "Program of Study", key: "program_of_study", align: "start" },
+        { title: "Course Code", key: "course_code" },
+        { title: "Course Title", key: "course_title" },
+        { title: "No. of Hours Lec", key: "no_of_hours_lec" },
+        { title: "No. of Hours Lab", key: "no_of_hours_lab" },
+
+        { title: "Credit Units", key: "credit_units" },
+        { title: "Actions", key: "actions" },
       ],
       programProspectuses: [],
     };
@@ -72,7 +54,7 @@ export default {
   methods: {
     fetchProgramProspectuses() {
       apiClient
-        .get("/program-prospectus")
+        .get("/program-prospectuses")
         .then((response) => {
           this.programProspectuses = response.data;
         })
@@ -85,13 +67,13 @@ export default {
     },
     editProgramProspectus(programProspectusId) {
       this.$router.push({
-        name: "EditProgramProspect",
+        name: "EditProgramProspectus",
         params: { id: programProspectusId },
       });
     },
     deleteProgramProspect(programProspectusId) {
       apiClient
-        .delete(`/program-prospectus/${programProspectusId}`)
+        .delete(`/program-prospectuses/${programProspectusId}`)
         .then(() => {
           this.fetchProgramProspectuses();
         })
@@ -99,7 +81,11 @@ export default {
           console.error("Error deleting program prospectus:", error);
         });
     },
+    itemColor(item) {
+      if (item.item.id % 2 == 1) {
+        return { class: "bg-grey-lighten-4" };
+      }
+    },
   },
 };
 </script>
-  

@@ -37,7 +37,7 @@ export default {
   methods: {
     async saveProspectus() {
       try {
-        await apiClient.post('/program-prospectus', this.form).then(() => {
+        await apiClient.post('/program-prospectuses', this.form).then(() => {
           this.$router.push({ name: "ProgramProspectus" });
         });
         alert('Program Prospectus Saved!');
