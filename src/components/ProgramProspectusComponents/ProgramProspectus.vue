@@ -9,25 +9,42 @@
         <v-spacer></v-spacer>
         <v-icon class="mr-2" size="small" icon="mdi-download"></v-icon>
         <v-icon class="mr-2" size="small" icon="mdi-printer-outline"></v-icon>
-        <v-icon @click="createProgramProspectus" class="mr-2" size="small" icon="mdi-plus"></v-icon>
+        <v-icon
+          @click="createProgramProspectus"
+          class="mr-2"
+          size="small"
+          icon="mdi-plus"
+        ></v-icon>
       </v-card-title>
       <v-card-text>
-        <v-data-table :row-props="itemColor" :headers="headers" :items="programProspectuses" item-key="id"
-          :items-per-page="5" search="">
+        <v-data-table
+          :row-props="itemColor"
+          :headers="headers"
+          :items="programProspectuses"
+          item-key="id"
+          :items-per-page="5"
+          search=""
+        >
           <template v-slot:[`item.actions`]="{ item }">
-            <v-icon color="blue" @click="editProgramProspectus(item.id)">mdi-pencil</v-icon>
-            <v-icon class="mx-2" color="red" @click="deleteProgramProspectus(item.id)">mdi-delete</v-icon>
+            <v-icon color="blue" @click="editProgramProspectus(item.id)"
+              >mdi-pencil</v-icon
+            >
+            <v-icon
+              class="mx-2"
+              color="red"
+              @click="deleteProgramProspectus(item.id)"
+              >mdi-delete</v-icon
+            >
           </template>
         </v-data-table>
-
       </v-card-text>
     </v-card>
   </v-container>
 </template>
 
 <script>
-import apiClient from "../services/api";
-import PageTitle from "./PageTitle.vue";
+import apiClient from "../../services/api";
+import PageTitle from "../PageTitle.vue";
 export default {
   components: {
     PageTitle,

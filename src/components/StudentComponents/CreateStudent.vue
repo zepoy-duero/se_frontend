@@ -8,12 +8,10 @@
           <v-text-field
             v-model="student.student_id"
             label="Student ID"
-            
           ></v-text-field>
           <v-text-field
             v-model="student.first_name"
             label="First Name"
-            
           ></v-text-field>
 
           <v-text-field
@@ -24,21 +22,18 @@
           <v-text-field
             v-model="student.last_name"
             label="Last Name"
-            
           ></v-text-field>
 
           <v-select
             v-model="student.gender"
             :items="genders"
             label="Gender"
-            
           ></v-select>
 
           <v-text-field
             v-model="student.date_of_birth"
             label="Date of Birth"
             type="date"
-            
           ></v-text-field>
 
           <v-text-field
@@ -51,26 +46,19 @@
           <v-text-field
             v-model="student.address"
             label="Address"
-            
           ></v-text-field>
 
-          <v-text-field
-            v-model="student.course"
-            label="Course"
-            
-          ></v-text-field>
+          <v-text-field v-model="student.course" label="Course"></v-text-field>
 
           <v-select
             v-model="student.year_level"
             :items="yearLevels"
             label="Year Level"
-            
           ></v-select>
 
           <v-text-field
             v-model="student.college_department"
             label="College Department"
-            
           ></v-text-field>
 
           <v-btn
@@ -95,7 +83,7 @@
 </template>
 
 <script>
-import apiClient from "../services/api";
+import apiClient from "../../services/api";
 
 export default {
   data() {

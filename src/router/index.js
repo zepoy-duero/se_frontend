@@ -1,20 +1,24 @@
 import { createRouter, createWebHistory } from "vue-router";
 import DashBoard from "../components/DashBoard.vue";
-import ListStudents from "../components/ListStudents.vue";
-import CreateStudent from "../components/CreateStudent.vue";
-import EditStudent from "../components/EditStudent.vue";
+import ListStudents from "../components/StudentComponents/ListStudents.vue";
+import CreateStudent from "../components/StudentComponents/CreateStudent.vue";
+import EditStudent from "../components/StudentComponents/EditStudent.vue";
 import Grades from "../components/Grades.vue";
-import ProgramProspectus from "../components/ProgramProspectus.vue";
-import CreateProgramProspectus from "../components/CreateProgramProspectus.vue";
-import StudentProspectus from "../components/StudentProspectus.vue";
-import Documentation from "../components/Documentation.vue"
-import StudentProfile from "@/components/StudentProfile.vue";
-import EditProgramProspectus from "@/components/EditProgramProspectus.vue";
+import ProgramProspectus from "../components/ProgramProspectusComponents/ProgramProspectus.vue";
+import CreateProgramProspectus from "../components/ProgramProspectusComponents/CreateProgramProspectus.vue";
+import StudentProspectus from "../components/StudentComponents/StudentProspectus.vue";
+import Documentation from "../components/Documentation.vue";
+import StudentProfile from "@/components/StudentComponents/StudentProfile.vue";
+import EditProgramProspectus from "@/components/ProgramProspectusComponents/EditProgramProspectus.vue";
 
 const routes = [
   { path: "/", name: "DashBoard", component: DashBoard },
   { path: "/list-students", name: "ListStudents", component: ListStudents },
-  { path: "/student-profile/:id", name: "StudentProfile", component: StudentProfile },
+  {
+    path: "/student-profile/:id",
+    name: "StudentProfile",
+    component: StudentProfile,
+  },
   { path: "/create-student", name: "CreateStudent", component: CreateStudent },
   { path: "/edit/:id", name: "EditStudent", component: EditStudent },
   { path: "/grades", name: "Grades", component: Grades },

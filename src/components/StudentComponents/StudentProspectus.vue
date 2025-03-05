@@ -21,7 +21,7 @@
             </v-toolbar>
           </template>
 
-          <template v-slot:item.actions="{ item }">
+          <template v-slot:[`item.actions`]="{ item }">
             <v-btn icon @click="editStudentProspectus(item.id)">
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
@@ -36,7 +36,7 @@
 </template>
   
   <script>
-import apiClient from "../services/api";
+import apiClient from "../../services/api";
 
 export default {
   data() {

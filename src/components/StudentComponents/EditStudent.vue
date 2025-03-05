@@ -45,7 +45,6 @@
             v-model="student.date_of_birth"
             label="Date of Birth"
             type="date"
-            :rules="[rules.required]"
             required
           ></v-text-field>
 
@@ -107,7 +106,7 @@
 </template>
 
 <script>
-import apiClient from "../services/api";
+import apiClient from "../../services/api";
 
 export default {
   data() {

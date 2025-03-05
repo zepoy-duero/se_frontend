@@ -12,12 +12,12 @@ export const useProspectusStore = defineStore("prospectus", {
   }),
 
   actions: {
-    async fetchProspectuses(params) {
+    async fetchProgramProspectuses(params) {
       this.loading = true;
       try {
         const response = await apiClient.get("/program-prospectuses", params);
         this.prospectuss = response.data.data;
-        console.log(this.prospectuss)
+        console.log(this.prospectuss);
         this.totalItems = response.data.total;
       } catch (error) {
         this.error = "Error fetching prospectuss";
@@ -27,10 +27,12 @@ export const useProspectusStore = defineStore("prospectus", {
       }
     },
 
-    async fetchProspectusById(prospectusId) {
+    async fetchProgramProspectusById(prospectusId) {
       this.loading = true;
       try {
-        const response = await apiClient.get(`/program-prospectuses/${prospectusId}`);
+        const response = await apiClient.get(
+          `/program-prospectuses/${prospectusId}`
+        );
         this.prospectus = response.data;
       } catch (error) {
         this.error = "Error fetching prospectus details";
@@ -40,10 +42,13 @@ export const useProspectusStore = defineStore("prospectus", {
       }
     },
 
-    async addProspectus(newProspectus) {
+    async addProgramProspectus(newProspectus) {
       this.loading = true;
       try {
-        const response = await apiClient.post("/program-prospectuses", newProspectus);
+        const response = await apiClient.post(
+          "/program-prospectuses",
+          newProspectus
+        );
         this.prospectuss.push(response.data);
       } catch (error) {
         this.error = "Error adding prospectus";
@@ -53,7 +58,7 @@ export const useProspectusStore = defineStore("prospectus", {
       }
     },
 
-    async updateProspectus(updatedProspectus) {
+    async updateProgramProspectus(updatedProspectus) {
       this.loading = true;
       try {
         const response = await apiClient.put(
@@ -72,7 +77,7 @@ export const useProspectusStore = defineStore("prospectus", {
       }
     },
 
-    async deleteProspectus(prospectusId) {
+    async deleteProgramProspectus(prospectusId) {
       this.loading = true;
       try {
         await apiClient.delete(`/program-prospectuses/${prospectusId}`);

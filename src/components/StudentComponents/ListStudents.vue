@@ -48,15 +48,20 @@
           :items-length="totalItems"
           :loading="loading"
           :search="params.params.search"
-          item-value="full_name"
           @update:options="getStudents"
         >
           <template v-slot:[`item.profile_pic`]="{ item }">
             <v-avatar v-if="item.profile_pic != ''">
-              <v-icon icon="mdi-account" @click="viewProfile(item.student_id)"></v-icon>
+              <v-icon
+                icon="mdi-account"
+                @click="viewProfile(item.student_id)"
+              ></v-icon>
             </v-avatar>
             <v-avatar v-else>
-              <v-icon icon="mdi-account-circle" @click="viewProfile(item.student_id)"></v-icon>
+              <v-icon
+                icon="mdi-account-circle"
+                @click="viewProfile(item.student_id)"
+              ></v-icon>
             </v-avatar>
           </template>
           <template v-slot:[`item.full_name`]="{ item }">
@@ -86,9 +91,9 @@
 </template>
 
 <script>
-import apiClient from "../services/api";
-import { useStudentStore } from "../stores/studentStore";
-import PageTitle from "./PageTitle.vue";
+import apiClient from "../../services/api";
+import { useStudentStore } from "../../stores/studentStore";
+import PageTitle from "../PageTitle.vue";
 
 export default {
   components: {
@@ -162,8 +167,8 @@ export default {
     async getStudents() {
       await this.studentStore.fetchStudents(this.params);
     },
-    viewProfile(studentId){
-      this.$router.push({name: "StudentProfile", params: {id: studentId}});
+    viewProfile(studentId) {
+      this.$router.push({ name: "StudentProfile", params: { id: studentId } });
     },
     createStudent() {
       this.$router.push({ name: "CreateStudent" });
