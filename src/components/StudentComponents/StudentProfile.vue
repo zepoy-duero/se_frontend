@@ -1,17 +1,14 @@
 <template>
-  <v-container>
+  <v-container fluid>
     <v-row justify="center">
-      <v-col cols="12" md="8">
-        <v-card>
+      <v-col cols="6">
+        <v-card class="ma-auto">
           <v-card-title class="headline">Student Profile</v-card-title>
-          <v-card-subtitle>Manage student information</v-card-subtitle>
+          <!-- <v-card-subtitle>Manage student information</v-card-subtitle> -->
 
           <!-- Profile Image Section -->
           <v-avatar size="120" class="mx-auto my-4">
-            <v-img
-              :src="student.profile_image || 'default-profile.png'"
-              alt="Profile Image"
-            ></v-img>
+            <v-icon size="100">mdi-account</v-icon>
           </v-avatar>
 
           <!-- Editable Student Form -->
@@ -40,15 +37,23 @@
           </v-form>
         </v-card>
       </v-col>
+      <v-col cols="6">
+        <student-prospectus />
+      </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
 import apiClient from "../../services/api";
+import StudentProspectus from "./StudentProspectus.vue";
 export default {
+  components: {
+    StudentProspectus,
+  },
   data() {
     return {
+      search: "",
       valid: false,
       student: {
         first_name: "",
@@ -71,12 +76,16 @@ export default {
     },
   },
   methods: {
+    addStudentProspectus() {
+      // this.$router.push("/student-prospectus");
+    },
     fetchStudent() {
       const studentId = this.$route.params.id;
       apiClient
         .get(`/students/${studentId}`)
         .then((response) => {
           this.student = response.data;
+          console.log(this.student);
         })
         .catch((error) => {
           console.error("Error fetching student:", error);
