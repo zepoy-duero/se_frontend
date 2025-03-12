@@ -4,14 +4,11 @@
       <v-card-title>Student Prospectus</v-card-title>
       <v-card-text>
         <v-form ref="form">
-          <v-select
+          <v-text-field
             v-model="form.student_id"
-            :items="students"
-            item-title="name"
-            item-value="id"
             label="Student"
-            required
-          ></v-select>
+            disabled
+          ></v-text-field>
           <v-select
             v-model="form.program_prospectus_id"
             :items="programProspectuses"
@@ -98,9 +95,24 @@ export default {
         console.error("Error deleting:", error);
       }
     },
+    async fetchProgramProspectuses() {
+  await apiClient
+    .get("/program-prospectuses")
+    .then((response) => {
+      this.programProspectuses = response.data;
+      console.log(this.programProspectuses)
+    })
+    .catch((error) => {
+      console.error("Error fetching program prospectuses:", error);
+    });
+},
   },
+  
+  
+  
   created() {
     this.loadStudentProspectuses();
+    this.fetchProgramProspectuses();
   },
 };
 </script>

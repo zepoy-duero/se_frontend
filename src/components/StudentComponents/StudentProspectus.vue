@@ -65,7 +65,7 @@ export default {
         });
     },
     createStudentProspectus() {
-      this.$router.push({ name: "CreateStudentProspectus" });
+      this.$router.push({ params: { id: this.$route.params.id },name: "CreateStudentProspectus" });
     },
     editStudentProspectus(studentProspectusId) {
       this.$router.push({
