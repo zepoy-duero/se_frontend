@@ -10,7 +10,7 @@
             disabled
           ></v-text-field>
           <v-select
-            v-model="form.program_prospectus_id"
+            v-model="form.prospectus_id"
             :items="programProspectuses"
             item-title="course_title"
             item-value="id"
@@ -56,8 +56,9 @@ export default {
     return {
       form: {
         student_id: "",
-        program_prospectus_id: "",
-        status: "ongoing",
+        prospectus_id: "",
+        enrollment_date: new Date().toISOString(),
+        status: "",
       },
       students: [],
       programProspectuses: [],
@@ -96,23 +97,23 @@ export default {
       }
     },
     async fetchProgramProspectuses() {
-  await apiClient
-    .get("/program-prospectuses")
-    .then((response) => {
-      this.programProspectuses = response.data;
-      console.log(this.programProspectuses)
-    })
-    .catch((error) => {
-      console.error("Error fetching program prospectuses:", error);
-    });
-},
+      await apiClient
+        .get("/program-prospectuses")
+        .then((response) => {
+          this.programProspectuses = response.data;
+          console.log(this.programProspectuses);
+        })
+        .catch((error) => {
+          console.error("Error fetching program prospectuses:", error);
+        });
+    },
   },
-  
-  
-  
+
   created() {
     this.loadStudentProspectuses();
     this.fetchProgramProspectuses();
+    this.form.student_id = this.$route.params.id;
+    this.form.status = "ongoing";
   },
 };
 </script>
