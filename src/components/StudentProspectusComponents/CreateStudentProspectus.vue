@@ -74,7 +74,7 @@ export default {
   methods: {
     async saveStudentProspectus() {
       try {
-        await apiClient.post("/student-prospectuses", this.form);
+        await apiClient.post("/student-prospectus", this.form);
         this.loadStudentProspectuses();
       } catch (error) {
         console.error("Error saving:", error);
@@ -82,7 +82,7 @@ export default {
     },
     async loadStudentProspectuses() {
       try {
-        const response = await apiClient.get("/student-prospectuses");
+        const response = await apiClient.get("/student-prospectus");
         this.studentProspectuses = response.data;
       } catch (error) {
         console.error("Error loading:", error);
@@ -90,7 +90,7 @@ export default {
     },
     async deleteStudentProspectus(id) {
       try {
-        await apiClient.delete(`/student-prospectuses/${id}`);
+        await apiClient.delete(`/student-prospectus/${id}`);
         this.loadStudentProspectuses();
       } catch (error) {
         console.error("Error deleting:", error);
@@ -98,7 +98,7 @@ export default {
     },
     async fetchProgramProspectuses() {
       await apiClient
-        .get("/program-prospectuses")
+        .get("/program-prospectus")
         .then((response) => {
           this.programProspectuses = response.data;
           console.log(this.programProspectuses);

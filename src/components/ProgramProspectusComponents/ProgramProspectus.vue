@@ -71,7 +71,7 @@ export default {
   methods: {
     fetchProgramProspectuses() {
       apiClient
-        .get("/program-prospectuses")
+        .get("/program-prospectus")
         .then((response) => {
           this.programProspectuses = response.data;
         })
@@ -88,7 +88,7 @@ export default {
         params: { id: programProspectusId },
       });
     },
-    deleteProgramProspect(programProspectusId) {
+    deleteProgramProspectus(programProspectusId) {
       apiClient
         .delete(`/program-prospectuses/${programProspectusId}`)
         .then(() => {

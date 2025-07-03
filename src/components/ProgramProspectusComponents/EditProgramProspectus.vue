@@ -44,7 +44,7 @@ export default {
         updateProgramProspectus() {
             const prospectusId = this.$route.params.id;
             apiClient
-                .put(`/program-prospectuses/${prospectusId}`, this.form)
+                .put(`/program-prospectus/${prospectusId}`, this.form)
                 .then(() => {
                     this.$router.push({ name: "ProgramProspectus" });
                 })
@@ -55,7 +55,7 @@ export default {
         fetchProgramProspectus() {
             const id = this.$route.params.id;
             apiClient
-                .get(`/program-prospectuses/${id}`)
+                .get(`/program-prospectus/${id}`)
                 .then((response) => {
                     this.form = response.data
                 })

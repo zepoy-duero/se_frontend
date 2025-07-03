@@ -75,7 +75,7 @@ export default {
     },
     deleteStudentProspectus(studentProspectusId) {
       apiClient
-        .delete(`/student-prospectuses/${studentProspectusId}`)
+        .delete(`/student-prospectus/${studentProspectusId}`)
         .then(() => {
           this.fetchStudentProspectuses();
         })
